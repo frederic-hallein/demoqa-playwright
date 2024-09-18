@@ -11,7 +11,7 @@ export class HomePage {
     async clickElementsButton() { await this.elementsButton.click(); }
 
     async goTo() {
-        await this.page.goto('https://demoqa.com/');
+        await this.page.goto('/');
         await expect(this.page).toHaveTitle("DEMOQA");
     }
 }
