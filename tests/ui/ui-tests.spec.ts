@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../../POMs/HomePage';
 import { NextPage } from '../../POMs/NextPage';
 
-import { Person } from '../../interfaces/Person';
 
 let person = { 
   fullName: "Peter Griffin",
@@ -10,6 +9,9 @@ let person = {
   currentAddress: "peter's current adress",
   permanentAddress: "peter's permanent adress"
 };
+
+
+
 
 test('Go to right page', async ({ page }) => {
   const homePage = new HomePage(page);
@@ -67,3 +69,11 @@ test('Select check box', async ({ page }) => {
 
 
 });
+
+
+
+
+
+
+
+

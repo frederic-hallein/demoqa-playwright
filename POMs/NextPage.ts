@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 import { Person } from "../interfaces/Person";
 
@@ -6,6 +6,7 @@ export class NextPage {
     private readonly page: Page;
     private readonly textBoxButton: Locator;
     private readonly checkBoxButton: Locator;
+    private readonly bookStoreButton: Locator;
     private readonly fullName: Locator;
     private readonly email: Locator;
     private readonly currentAddress: Locator;
@@ -24,13 +25,13 @@ export class NextPage {
 
 
 
+
+
     constructor(page: Page) {
         this.page = page;
 
         this.textBoxButton          = page.locator('.text').getByText('Text Box');
-        this.checkBoxButton         = page.locator('.text').getByText('Check Box');
         this.textBoxTitle           = page.locator('.text-center').getByText('Text Box');
-        this.checkBoxTitle          = page.locator('.text-center').getByText('Check Box');
         this.fullName               = page.locator('#userName');
         this.email                  = page.locator('#userEmail');
         this.currentAddress         = page.locator('#currentAddress');
@@ -40,10 +41,14 @@ export class NextPage {
         this.personEmail            = page.locator('.border #email')
         this.personCurrentAddress   = page.locator('.border #currentAddress')
         this.personPermanentAddress = page.locator('.border #permanentAddress')
-
+        
+        this.checkBoxButton         = page.locator('.text').getByText('Check Box');
+        this.checkBoxTitle          = page.locator('.text-center').getByText('Check Box');
         this.expandAllCheckBoxes    = page.getByRole('button', { name: "Expand all"})
         this.checkBoxFolderButton   = page.locator('.rct-text');
         this.selectedCheckBoxes     = page.locator('#result');
+
+        this.bookStoreButton        = page.locator('.text').getByText('Book Store');
         
     }
 
@@ -63,9 +68,10 @@ export class NextPage {
 
     async clickCheckBoxFolderButton(folderName: string) { 
         await this.expandAllCheckBoxes.click();
-        //await this.checkBoxFolderButton.filter({ hasText: folderName }).click(); 
         await this.checkBoxFolderButton.getByText(folderName).click(); 
     }
+
+    async clickBooksStoreButton() { await this.bookStoreButton.click(); }
 
 }
 
