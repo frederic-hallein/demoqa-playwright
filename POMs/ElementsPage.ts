@@ -2,13 +2,11 @@ import { Locator, Page } from "@playwright/test";
 
 import { Person } from "../interfaces/Person";
 
-export class NextPage {
-    //private readonly page: Page;
+export class ElementsPage {
+    private readonly page: Page;
     private readonly textBoxButton: Locator;
     private readonly checkBoxButton: Locator;
-    private readonly bookStoreButton: Locator;
     private readonly checkBoxFolderButton: Locator;
-    private readonly practiceFormButton: Locator;
     private readonly fullName: Locator;
     private readonly email: Locator;
     private readonly currentAddress: Locator;
@@ -18,7 +16,6 @@ export class NextPage {
 
     public readonly textBoxTitle: Locator;
     public readonly checkBoxTitle: Locator;
-    public readonly practiceFormTitle: Locator;
     public readonly personName: Locator;
     public readonly personEmail: Locator;
     public readonly personCurrentAddress: Locator;
@@ -47,10 +44,6 @@ export class NextPage {
         this.checkBoxFolderButton   = page.locator('.rct-text');
         this.selectedCheckBoxes     = page.locator('#result');
 
-        this.bookStoreButton        = page.locator('.text').getByText('Book Store');
-
-        this.practiceFormButton     = page.locator('.text').getByText('Practice Form');
-        this.practiceFormTitle      = page.locator('.text-center').getByText('Practice Form');
     }
 
     async clickTextBoxButton() { await this.textBoxButton.click(); }
@@ -72,9 +65,6 @@ export class NextPage {
         await this.checkBoxFolderButton.getByText(folderName).click(); 
     }
 
-    async clickBooksStoreButton() { await this.bookStoreButton.click(); }
-    
-    async clickPracticeFormButton() { await this.practiceFormButton.click(); }
 
 }
 
