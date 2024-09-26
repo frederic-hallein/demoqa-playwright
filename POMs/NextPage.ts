@@ -3,28 +3,27 @@ import { Locator, Page } from "@playwright/test";
 import { Person } from "../interfaces/Person";
 
 export class NextPage {
-    private readonly page: Page;
+    //private readonly page: Page;
     private readonly textBoxButton: Locator;
     private readonly checkBoxButton: Locator;
     private readonly bookStoreButton: Locator;
+    private readonly checkBoxFolderButton: Locator;
+    private readonly practiceFormButton: Locator;
     private readonly fullName: Locator;
     private readonly email: Locator;
     private readonly currentAddress: Locator;
     private readonly permanentAddress: Locator;
     private readonly submitButton: Locator;
     private readonly expandAllCheckBoxes: Locator;
-    private readonly checkBoxFolderButton: Locator;
 
     public readonly textBoxTitle: Locator;
     public readonly checkBoxTitle: Locator;
+    public readonly practiceFormTitle: Locator;
     public readonly personName: Locator;
     public readonly personEmail: Locator;
     public readonly personCurrentAddress: Locator;
     public readonly personPermanentAddress: Locator;
     public readonly selectedCheckBoxes: Locator;
-
-
-
 
 
     constructor(page: Page) {
@@ -49,7 +48,9 @@ export class NextPage {
         this.selectedCheckBoxes     = page.locator('#result');
 
         this.bookStoreButton        = page.locator('.text').getByText('Book Store');
-        
+
+        this.practiceFormButton     = page.locator('.text').getByText('Practice Form');
+        this.practiceFormTitle      = page.locator('.text-center').getByText('Practice Form');
     }
 
     async clickTextBoxButton() { await this.textBoxButton.click(); }
@@ -72,6 +73,8 @@ export class NextPage {
     }
 
     async clickBooksStoreButton() { await this.bookStoreButton.click(); }
+    
+    async clickPracticeFormButton() { await this.practiceFormButton.click(); }
 
 }
 
