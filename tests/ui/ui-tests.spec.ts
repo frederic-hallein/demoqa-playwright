@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-import { HomePage } from '../../POMs/HomePage';
+import { HomePage }     from '../../POMs/HomePage';
 import { ElementsPage } from '../../POMs/ElementsPage';
-import { FormsPage } from '../../POMs/FormsPage';
+import { FormsPage }    from '../../POMs/FormsPage';
 
 let person = { 
   fullName: "Peter Griffin",
@@ -16,8 +16,8 @@ let student = {
   firstName: "Chris",
   lastName: "Griffin",
   email: "chris.griffin@gmail.com",
-  gender: "Male",
-  mobile: "0495 66 66 66",
+  gender: "Other",
+  mobile: "04956969669",
   birthDay: "1 Feb 2000",
   subjects: ["Physics", "Math", "Art"],
   hobbies: ["Reading"],
@@ -73,7 +73,7 @@ test.describe('UI tests', () => {
       if (!folderName.includes('.doc')) { 
         await expect(elementsPage.selectedCheckBoxes).toContainText(folderName.toLowerCase()); 
       } else { 
-        let expectedFolderNameSplit:string[] = folderName.split(" ", 2);
+        let expectedFolderNameSplit:string[] = folderName.split(' ', 2);
         let folderNamePrefix:string = expectedFolderNameSplit[0].toLowerCase();
         let fileFormat:string = expectedFolderNameSplit[1].replace('.doc','');
         folderName = folderNamePrefix + fileFormat;
@@ -94,7 +94,11 @@ test.describe('UI tests', () => {
     await expect(formsPage.practiceFormTitle).toHaveText('Practice Form');
 
     await formsPage.fillPracticeForm(student);
-
+    await expect(formsPage.firstName).not.toBeEmpty();
+    await expect(formsPage.lastName).not.toBeEmpty();
+    await expect(formsPage.mobile).not.toBeEmpty();
+    expect(/^\d+$/.test(student.mobile)).toBeTruthy(); // check if it contains only digits using regex
+    // TODO: assertion mobile only 10 digits and correct selected gender
 
   });
 
