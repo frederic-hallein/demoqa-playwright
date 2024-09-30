@@ -3,7 +3,6 @@ import { Locator, Page } from "@playwright/test";
 import { Person } from "../interfaces/Person";
 
 export class ElementsPage {
-    private readonly page: Page;
     private readonly textBoxButton: Locator;
     private readonly checkBoxButton: Locator;
     private readonly checkBoxFolderButton: Locator;
@@ -24,8 +23,6 @@ export class ElementsPage {
 
 
     constructor(page: Page) {
-        this.page = page;
-
         this.textBoxButton          = page.locator('.text').getByText('Text Box');
         this.textBoxTitle           = page.locator('.text-center').getByText('Text Box');
         this.fullName               = page.locator('#userName');

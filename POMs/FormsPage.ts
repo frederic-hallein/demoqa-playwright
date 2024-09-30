@@ -1,12 +1,10 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 import { Student } from "../interfaces/Student";
 
 export class FormsPage {
-    private readonly page: Page;
     private readonly practiceFormButton: Locator;
     private readonly email: Locator;
-    private readonly gender: Locator;
     private readonly birthDate: Locator;
     private readonly subjects: Locator;
     private readonly hobbies: Locator;
@@ -15,8 +13,11 @@ export class FormsPage {
     private readonly city: Locator;
     
     
+    public readonly page: Page;
     public readonly firstName: Locator;
     public readonly lastName: Locator;
+    public readonly gender: Locator;
+    public          genderSelection: string;
     public readonly mobile: Locator;
     public readonly practiceFormTitle: Locator;
 
@@ -33,6 +34,8 @@ export class FormsPage {
         this.gender             = page.locator('.custom-radio');
         this.mobile             = page.locator('#userNumber');
         this.birthDate          = page.locator('#dateOfBirthInput')
+        this.subjects           = page.locator('#subjectsInput');
+        this.hobbies            = page.locator('.custom-checkbox')
     }
 
     
@@ -42,12 +45,50 @@ export class FormsPage {
         await this.firstName.fill(student.firstName);
         await this.lastName.fill(student.lastName);
         await this.email.fill(student.email);
-        let genderSelection: string = '#gender-radio-';
-        if      (student.gender === 'Male')   { genderSelection += '1'; } 
-        else if (student.gender === 'Female') { genderSelection += '2'; } 
-        else                                  { genderSelection += '3'; }     
-        await this.gender.filter({ has: this.page.locator(genderSelection) }).click();
+
+        this.genderSelection = '';
+        switch(student.gender) {
+            case 'Male':
+                this.genderSelection = '#gender-radio-1';
+                break;
+            case 'Female':
+                this.genderSelection = '#gender-radio-2';
+                break;
+            case 'Other':
+                this.genderSelection = '#gender-radio-3';
+                break;
+            
+
+        }
+        await this.gender.filter({ has: this.page.locator(this.genderSelection) }).click();
+    
         await this.mobile.fill(student.mobile);
+
+        // NOTE: Tab or enter doe not work
+        //for (var subject of student.subjects) {
+        //    await this.subjects.fill(subject);
+        //    await this.page.keyboard.press('Tab');
+        //}
+
+        let hobbiesSelection: string = '';
+        for (var hobby of student.hobbies) {
+            switch(hobby) {
+                case 'Sports':
+                    hobbiesSelection = '#hobbies-checkbox-1';
+                    break;
+                case 'Reading':
+                    hobbiesSelection = '#hobbies-checkbox-2';
+                    break;
+                case 'Music':
+                    hobbiesSelection = '#hobbies-checkbox-3';
+                    break;
+                
+
+            }
+            await this.hobbies.filter({ has: this.page.locator(hobbiesSelection) }).click();
+        }
+   
+        
 
     }
 

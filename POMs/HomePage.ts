@@ -8,7 +8,7 @@ export class HomePage {
     constructor(page: Page) {
         this.page = page;
         this.elementsButton = page.getByRole('heading', { name: 'Elements'});
-        this.formsButton = page.getByRole('heading', { name: 'Forms'});
+        this.formsButton    = page.getByRole('heading', { name: 'Forms'});
     }
     async clickElementsButton() { await this.elementsButton.click(); }
 

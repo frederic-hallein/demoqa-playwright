@@ -17,10 +17,10 @@ let student = {
   lastName: "Griffin",
   email: "chris.griffin@gmail.com",
   gender: "Other",
-  mobile: "04956969669",
-  birthDay: "1 Feb 2000",
-  subjects: ["Physics", "Math", "Art"],
-  hobbies: ["Reading"],
+  mobile: "0495696969",
+  birthDay: "01 Feb 2000",
+  subjects: ["Physics", "Math", "Arts"],
+  hobbies: ["Sports", "Music"],
   currentAddress: "Chris's current adress",
   state: "NCR",
   city: "Gurgaon"
@@ -96,8 +96,9 @@ test.describe('UI tests', () => {
     await formsPage.fillPracticeForm(student);
     await expect(formsPage.firstName).not.toBeEmpty();
     await expect(formsPage.lastName).not.toBeEmpty();
+    //await expect(formsPage.gender.filter({ has: formsPage.page.locator(formsPage.genderSelection)})).toBeChecked();
     await expect(formsPage.mobile).not.toBeEmpty();
-    expect(/^\d+$/.test(student.mobile)).toBeTruthy(); // check if it contains only digits using regex
+    expect(/^[0-9]{10}$/.test(student.mobile)).toBeTruthy(); //check if it contains 10 digits using regex
     
     // TODO: assertion mobile only 10 digits and correct selected gendergit 
 
