@@ -98,7 +98,8 @@ test.describe('UI tests', () => {
     await expect(formsPage.lastName).not.toBeEmpty();
     await expect(formsPage.mobile).not.toBeEmpty();
     expect(/^\d+$/.test(student.mobile)).toBeTruthy(); // check if it contains only digits using regex
-    // TODO: assertion mobile only 10 digits and correct selected gender
+    
+    // TODO: assertion mobile only 10 digits and correct selected gendergit 
 
   });
 
