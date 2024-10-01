@@ -23,8 +23,8 @@ export class ElementsPage {
 
 
     constructor(page: Page) {
-        this.textBoxButton          = page.locator('.text').getByText('Text Box');
-        this.textBoxTitle           = page.locator('.text-center').getByText('Text Box');
+        this.textBoxButton          = page.getByText('Text Box');
+        this.textBoxTitle           = page.getByRole('heading', { name: 'Text Box'});
         this.fullName               = page.locator('#userName');
         this.email                  = page.locator('#userEmail');
         this.currentAddress         = page.locator('#currentAddress');
@@ -35,8 +35,8 @@ export class ElementsPage {
         this.personCurrentAddress   = page.locator('.border #currentAddress')
         this.personPermanentAddress = page.locator('.border #permanentAddress')
         
-        this.checkBoxButton         = page.locator('.text').getByText('Check Box');
-        this.checkBoxTitle          = page.locator('.text-center').getByText('Check Box');
+        this.checkBoxButton         = page.getByText('Check Box');
+        this.checkBoxTitle          = page.getByRole('heading', { name: 'Check Box'});;
         this.expandAllCheckBoxes    = page.getByRole('button', { name: "Expand all"})
         this.checkBoxFolderButton   = page.locator('.rct-text');
         this.selectedCheckBoxes     = page.locator('#result');

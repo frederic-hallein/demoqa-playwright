@@ -3,39 +3,47 @@ import { Locator, Page } from "@playwright/test";
 import { Student } from "../interfaces/Student";
 
 export class FormsPage {
+    private readonly page: Page;
     private readonly practiceFormButton: Locator;
-    private readonly email: Locator;
     private readonly birthDate: Locator;
     private readonly subjects: Locator;
-    private readonly hobbies: Locator;
     private readonly currentAddress: Locator;
-    private readonly state: Locator;
-    private readonly city: Locator;
+    private readonly submitButton: Locator;
+
     
-    
-    public readonly page: Page;
+    public readonly practiceFormTitle: Locator;
     public readonly firstName: Locator;
     public readonly lastName: Locator;
-    public readonly gender: Locator;
-    public          genderSelection: string;
+    public readonly email: Locator;
+    public          gender: Locator;
     public readonly mobile: Locator;
-    public readonly practiceFormTitle: Locator;
+    public          hobby: Locator;
+    public readonly state: Locator;
+    public readonly selectedState: Locator;
+    public readonly city: Locator;
+    public readonly selectedCity: Locator;
+
 
 
 
     constructor(page: Page) {
         this.page = page;
 
-        this.practiceFormButton = page.locator('.text').getByText('Practice Form');
-        this.practiceFormTitle  = page.locator('.text-center').getByText('Practice Form');
+        this.practiceFormButton = page.getByText('Practice Form');
+        this.practiceFormTitle  = page.getByRole('heading', { name: 'Practice Form'});
         this.firstName          = page.locator('#firstName');
         this.lastName           = page.locator('#lastName');
         this.email              = page.locator('#userEmail');
-        this.gender             = page.locator('.custom-radio');
         this.mobile             = page.locator('#userNumber');
         this.birthDate          = page.locator('#dateOfBirthInput')
         this.subjects           = page.locator('#subjectsInput');
-        this.hobbies            = page.locator('.custom-checkbox')
+        this.currentAddress     = page.locator('#currentAddress');
+        this.state              = page.locator('#react-select-3-input');
+        this.selectedState      = page.locator('.css-1uccc91-singleValue');
+        this.city               = page.locator('#react-select-4-input');
+        this.selectedCity       = page.locator('.css-1uccc91-singleValue');
+        this.submitButton       = page.locator('#submit');
+
     }
 
     
@@ -45,49 +53,23 @@ export class FormsPage {
         await this.firstName.fill(student.firstName);
         await this.lastName.fill(student.lastName);
         await this.email.fill(student.email);
-
-        this.genderSelection = '';
-        switch(student.gender) {
-            case 'Male':
-                this.genderSelection = '#gender-radio-1';
-                break;
-            case 'Female':
-                this.genderSelection = '#gender-radio-2';
-                break;
-            case 'Other':
-                this.genderSelection = '#gender-radio-3';
-                break;
-            
-
-        }
-        await this.gender.filter({ has: this.page.locator(this.genderSelection) }).click();
-    
+        this.gender = this.page.getByText(student.gender);
+        await this.gender.check();
         await this.mobile.fill(student.mobile);
 
-        // NOTE: Tab or enter doe not work
-        //for (var subject of student.subjects) {
-        //    await this.subjects.fill(subject);
-        //    await this.page.keyboard.press('Tab');
-        //}
-
-        let hobbiesSelection: string = '';
-        for (var hobby of student.hobbies) {
-            switch(hobby) {
-                case 'Sports':
-                    hobbiesSelection = '#hobbies-checkbox-1';
-                    break;
-                case 'Reading':
-                    hobbiesSelection = '#hobbies-checkbox-2';
-                    break;
-                case 'Music':
-                    hobbiesSelection = '#hobbies-checkbox-3';
-                    break;
-                
-
-            }
-            await this.hobbies.filter({ has: this.page.locator(hobbiesSelection) }).click();
+        for (var subject of student.subjects) {
+            await this.subjects.fill(subject);
+            await this.subjects.press('Enter');
         }
-   
+
+        for (var hobby of student.hobbies) { await this.page.getByText(hobby).check(); }
+        
+        await this.currentAddress.fill(student.currentAddress);
+        await this.state.fill(student.state);
+        await this.state.press('Enter');
+        await this.city.fill(student.city);
+        await this.city.press('Enter');
+        await this.submitButton.click();
         
 
     }
