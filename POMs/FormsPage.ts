@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 import { Student } from "../interfaces/Student";
 
@@ -44,6 +44,8 @@ export class FormsPage {
         this.selectedCity       = page.locator('.css-1uccc91-singleValue');
         this.submitButton       = page.locator('#submit');
 
+    
+
     }
 
     
@@ -62,17 +64,19 @@ export class FormsPage {
             await this.subjects.press('Enter');
         }
 
-        for (var hobby of student.hobbies) { await this.page.getByText(hobby).check(); }
+        //for (var hobby of student.hobbies) { await this.page.getByText(hobby).check(); }
         
         await this.currentAddress.fill(student.currentAddress);
         await this.state.fill(student.state);
         await this.state.press('Enter');
         await this.city.fill(student.city);
         await this.city.press('Enter');
-        await this.submitButton.click();
+        
         
 
     }
+
+    async clickSubmitButton() { await this.submitButton.click(); }
 
 }
 
