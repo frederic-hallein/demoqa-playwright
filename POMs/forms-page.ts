@@ -1,7 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
 
-import { Student } from "../interfaces/Student";
-
 export class FormsPage {
     private readonly page: Page;
     private readonly practiceFormButton: Locator;
@@ -11,24 +9,23 @@ export class FormsPage {
     private readonly submitButton: Locator;
 
     
-    public readonly practiceFormTitle: Locator;
-    public readonly firstName: Locator;
-    public readonly lastName: Locator;
-    public readonly email: Locator;
-    public          gender: Locator;
-    public readonly mobile: Locator;
-    public          hobby: Locator;
-    public readonly state: Locator;
-    public readonly selectedState: Locator;
-    public readonly city: Locator;
-    public readonly selectedCity: Locator;
+    private readonly practiceFormTitle: Locator;
+    private readonly firstName: Locator;
+    private readonly lastName: Locator;
+    private readonly email: Locator;
+    private          gender: Locator;
+    private readonly mobile: Locator;
+    private          hobby: Locator;
+    private readonly state: Locator;
+    private readonly selectedState: Locator;
+    private readonly city: Locator;
+    private readonly selectedCity: Locator;
 
 
 
 
     constructor(page: Page) {
-        this.page = page;
-
+        this.page               = page;
         this.practiceFormButton = page.getByText('Practice Form');
         this.practiceFormTitle  = page.getByRole('heading', { name: 'Practice Form'});
         this.firstName          = page.locator('#firstName');
@@ -51,7 +48,7 @@ export class FormsPage {
     
     async clickPracticeFormButton() { await this.practiceFormButton.click(); }
 
-    async fillPracticeForm(student: Student) {
+    async fillPracticeForm(student: {firstName: string; lastName: string; email: string; gender:string; mobile: string; subjects: string[]; currentAddress: string; state: string; city: string }) {
         await this.firstName.fill(student.firstName);
         await this.lastName.fill(student.lastName);
         await this.email.fill(student.email);
