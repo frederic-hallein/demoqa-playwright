@@ -1,76 +1,72 @@
-import { test, expect } from '../../fixtures.ts';
+import { test, expect } from "../../fixtures.ts";
 
-import { person }       from "../../data/user-credentials.json";
+import { person, student } from "../../data/user-credentials.json";
 
 
-test.use({ storageState: './tests/.auth/user-auth.json'});
-test.describe("Tests of the 'Elements' page exercises", () => {
+test.use({ storageState: "./tests/.auth/user-auth.json" });
+test.describe("Tests of the 'Elements' page", () => {
 
   test.beforeEach(async ({ page }) => { await page.goto(''); });
 
-  test('Text Box - Fill in Text box and submit', async ({ page, homePage, elementsPage }) => {
+  test("Text Box - Fill in Text box and submit", async ({ homePage, elementsPage }) => {
     await homePage.clickElementsButton();
     await elementsPage.selectTextBoxTab();
-    await expect(page.getByRole('heading', { name: 'Text Box' })).toBeVisible();
+    await expect(elementsPage.getTextBoxTitle).toBeVisible();
 
     await elementsPage.fillTextBox(person);
     await elementsPage.clickSubmitButton();
-    await expect(page.locator('#name')).toContainText(person.fullName);
-    await expect(page.locator('#email')).toContainText(person.email);
-    await expect(page.locator('.border #currentAddress')).toContainText(person.currentAddress);
-    await expect(page.locator('.border #permanentAddress')).toContainText(person.permanentAddress);
+    await expect(elementsPage.getFullNameOutput).toContainText(person.fullName);
+    await expect(elementsPage.getEmailOutput).toContainText(person.email);
+    await expect(elementsPage.getCurrentAddressOutput).toContainText(person.currentAddress);
+    await expect(elementsPage.getPermanentAddressOutput).toContainText(person.permanentAddress);
 
   });
 
-  test('Check Box - Select check box', async ({ page, homePage, elementsPage }) => {
+  test("Check Box - Select check box", async ({ homePage, elementsPage }) => {
     await homePage.clickElementsButton(); 
     await elementsPage.selectCheckBoxTab();
-    await expect(page.getByRole("heading", { name: "Check Box"})).toHaveText("Check Box");
+    await expect(elementsPage.getCheckBoxTitle).toHaveText("Check Box");
 
     let folderNames:string[] = ["Desktop", "Veu", "Private", "Word File.doc"];
     for (var folderName of folderNames) {
       await elementsPage.selectFolder(folderName);
       if (!folderName.includes(".doc")) { 
-        await expect(page.locator("#result")).toContainText(folderName.toLowerCase()); 
+        await expect(elementsPage.getSelectedCheckBoxes).toContainText(folderName.toLowerCase()); 
       } else { 
         let expectedFolderNameSplit:string[] = folderName.split(' ', 2);
-        let folderNamePrefix:string = expectedFolderNameSplit[0].toLowerCase();
-        let fileFormat:string = expectedFolderNameSplit[1].replace(".doc",'');
+        let folderNamePrefix:string          = expectedFolderNameSplit[0].toLowerCase();
+        let fileFormat:string                = expectedFolderNameSplit[1].replace(".doc",'');
         folderName = folderNamePrefix + fileFormat;
-        await expect(page.locator("#result")).toContainText(folderName); 
+        await expect(elementsPage.getSelectedCheckBoxes).toContainText(folderName); 
       }
     }
   });
 
-  /*
-  test('Practice Form - Fill in practice form and submit', async ({ homePage, formsPage }) => {
-
+  
+  test("Practice Form - Fill in practice form and submit", async ({ homePage, formsPage }) => {
     await homePage.clickFormsButton();
-    
-    await formsPage.clickPracticeFormButton();
-    await expect(formsPage.practiceFormTitle).toHaveText('Practice Form');
+    await formsPage.selectPracticeFormTab();
+    await expect(formsPage.getPracticeFormTitle).toBeVisible();
 
-    await expect(formsPage.city).toBeDisabled();
     await formsPage.fillPracticeForm(student);
-    await expect(formsPage.firstName).not.toBeEmpty();
-    await expect(formsPage.firstName).toHaveValue(student.firstName);
-    await expect(formsPage.lastName).not.toBeEmpty();
-    await expect(formsPage.lastName).toHaveValue(student.lastName);
-    await expect(formsPage.email).toHaveValue(student.email);
-    //await expect(formsPage.gender).toBeChecked();
-    await expect(formsPage.mobile).not.toBeEmpty();
-    await expect(formsPage.mobile).toHaveValue(student.mobile);
-    expect(/^[0-9]{10}$/.test(student.mobile)).toBeTruthy(); //check if it contains 10 digits using regex
-    // TODO: assert subjects
-    // TODO: assert hobbies
-    // TODO: assert city not clickable before state selection
-    await expect(formsPage.selectedState.filter({ hasText: student.state })).toHaveText(student.state);
-    await expect(formsPage.selectedCity.filter({ hasText: student.city })).toHaveText(student.city);
-
     await formsPage.clickSubmitButton();
+    await expect(formsPage.getPracticeFormOutput(student.firstName + ' ' + student.lastName)).toBeVisible();
+    await expect(formsPage.getPracticeFormOutput(student.email)).toBeVisible();
+    await expect(formsPage.getPracticeFormOutput(student.gender)).toBeVisible();
+    await expect(formsPage.getPracticeFormOutput(student.mobile)).toBeVisible();
+    const dateOfBirthSplit: string[] = student.dateOfBirth.split(' ');
+    let day: string   = dateOfBirthSplit[0]; 
+    let month: string = dateOfBirthSplit[1]; 
+    let year: string  = dateOfBirthSplit[2]; 
+    await expect(formsPage.getPracticeFormOutput(day + ' ' + month + ',' + year)).toBeVisible();
+    for (var subject of student.subjects) { await expect(formsPage.getPracticeFormOutput(subject)).toBeVisible(); }
+    for (var hobby   of student.hobbies)  { await expect(formsPage.getPracticeFormOutput(hobby)).toBeVisible(); }
+    await expect(formsPage.getPracticeFormOutput(student.picture)).toBeVisible();
+    await expect(formsPage.getPracticeFormOutput(student.currentAddress)).toBeVisible();
+    await expect(formsPage.getPracticeFormOutput(student.state + ' ' + student.city)).toBeVisible();
 
   });
-  */
+  
 
 
 
