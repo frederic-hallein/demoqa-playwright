@@ -42,7 +42,6 @@ test.describe("Tests of the 'Elements' page", () => {
     }
   });
 
-  
   test("Practice Form - Fill in practice form and submit", async ({ homePage, formsPage }) => {
     await homePage.clickFormsButton();
     await formsPage.selectPracticeFormTab();
@@ -64,7 +63,6 @@ test.describe("Tests of the 'Elements' page", () => {
     await expect(formsPage.getPracticeFormOutput(student.picture)).toBeVisible();
     await expect(formsPage.getPracticeFormOutput(student.currentAddress)).toBeVisible();
     await expect(formsPage.getPracticeFormOutput(student.state + ' ' + student.city)).toBeVisible();
-
   });
   
 
