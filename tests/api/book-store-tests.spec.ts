@@ -6,7 +6,7 @@ function randomNumber(min: number, max: number) { return Math.floor(Math.random(
 
 test.use({ storageState: "./tests/.auth/user-auth.json" });
 test.describe("Tests of the 'Book Store Application - Book Store API'", () => {
-  test("Post a user with authorization", async ({ request }) => {
+  test("POST Authorized User - Post a user with authorization", async ({ request }) => {
     // POST user
     const userNumber = randomNumber(1, 10000);
     const postUserResponse = await request.post("/Account/v1/User", {
@@ -39,7 +39,7 @@ test.describe("Tests of the 'Book Store Application - Book Store API'", () => {
     await expect(postAuthorizationResponse).toBeOK();
   });
 
-  test("Get a all and a single book", async ({ request }) => {
+  test("GET Book(s) - Get all and a single book", async ({ request }) => {
     // GET all books
     const getBooksResponse = await request.get("/Bookstore/v1/Books");
     const getBooksResponseJSON = await getBooksResponse.json();
