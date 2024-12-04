@@ -30,5 +30,7 @@ To run the project, use the following command:
 npx playwright test
 ```
 
+To run your tests in headed mode, use the `--headed` flag
+
 ## Test Cases
 
