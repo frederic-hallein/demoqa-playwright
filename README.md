@@ -4,7 +4,7 @@
 The site consists out of six section with each topic containing testable features present in most public accessible sites.
 In this repository, all test cases are written in Playwright and consists of both UI and API tests.  
 
-## How To Install
+## How To Install & Run
 1. Install Playwright by running the command:
 ```bash
 npm init playwright@latest
@@ -24,8 +24,7 @@ npx playwright --version
 git clone https://github.com/frederic-hallein/demoqa-playwright.git
 ```
 
-## How To Run
-To run the project, use the following command:
+4. To run the project, go inside the `demoqa-playwright/` folder and use the following command:
 ```bash
 npx playwright test
 ```
