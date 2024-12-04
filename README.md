@@ -11,11 +11,15 @@ In this repository, all test cases are written in Playwright and consists of bot
 - [Test Cases](#testcases)
 
 ## Installation
-1. Clone the repository:
+1. Install Plawright:
 ```bash
- git clone https://github.com/yourusername/yourproject.git
+npm init playwright@latest
 ```
-
+3. Clone the repository:
+```bash
+git clone https://github.com/yourusername/yourproject.git
+```
+2. 
 ## Usage
 
 
