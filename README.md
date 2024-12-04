@@ -11,15 +11,23 @@ In this repository, all test cases are written in Playwright and consists of bot
 - [Test Cases](#testcases)
 
 ## Installation
-1. Install Plawright:
+1. Install Playwright by running the command:
 ```bash
 npm init playwright@latest
 ```
-3. Clone the repository:
+2. To update Playwright to the latest version run the following command:
+```bash
+npm install -D @playwright/test@latest
+```
+To check which version of Playwright is installed you can run the following command:
+```bash
+npx playwright --version
+```
+4. Clone the repository:
 ```bash
 git clone https://github.com/yourusername/yourproject.git
 ```
-2. 
+3. 
 ## Usage
 
 
