@@ -33,4 +33,11 @@ npx playwright test
 To run your tests in headed mode, use the `--headed` flag
 
 ## Test Cases
-
+### UI Tests
+- Elements
+  - Text Box - Fill in Text box and submit
+  - Check Box - Select check box
+- Forms
+  - Practice Forms - Fill in practice form and submit
+### API Tests
+- Book Store Application
