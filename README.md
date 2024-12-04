@@ -19,7 +19,7 @@ npm init playwright@latest
 ```bash
 npm install -D @playwright/test@latest
 ```
-To check which version of Playwright is installed you can run the following command:
+   To check which version of Playwright is installed you can run the following command:
 ```bash
 npx playwright --version
 ```
