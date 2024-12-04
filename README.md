@@ -21,7 +21,7 @@ npx playwright --version
 
 3. To clone the repository, run the following command:
 ```bash
-git clone https://github.com/yourusername/yourproject.git
+git clone https://github.com/frederic-hallein/demoqa-playwright.git
 ```
 
 ## How To Run
