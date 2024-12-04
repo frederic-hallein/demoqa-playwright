@@ -39,7 +39,7 @@ test.describe("Tests of the 'Book Store Application - Book Store API'", () => {
     await expect(postAuthorizationResponse).toBeOK();
   });
 
-  test("GET Book(s) - Get all and a single book", async ({ request }) => {
+  test("GET Book(s) - Get a single and all books", async ({ request }) => {
     // GET all books
     const getBooksResponse = await request.get("/Bookstore/v1/Books");
     const getBooksResponseJSON = await getBooksResponse.json();

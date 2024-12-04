@@ -41,3 +41,5 @@ To run your tests in headed mode, use the `--headed` flag
   - Practice Forms - Fill in practice form and submit
 ### API Tests
 - Book Store Application
+  - POST Authorized User - Post a user with authorization
+  - GET Book(s) - Get a single and all books
